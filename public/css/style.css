@@ -1,0 +1,565 @@
+:root {
+    --color-bg-primary: #0f172a;
+    --color-text-main: #f8fafc;
+    --color-text-muted: #cbd5e1;
+    --color-accent: #f59e0b; /* Golden accent for premium feel */
+    --color-accent-hover: #d97706;
+    --color-glass-bg: rgba(15, 23, 42, 0.6);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-story: 'Lora', serif;
+    --font-ui: 'Montserrat', sans-serif;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-main);
+    font-family: var(--font-story);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hero-section {
+    min-height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    /* The gradient is overlaid dynamically in the HTML */
+}
+
+/* Glassmorphism Container */
+.tale-container {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 24px;
+    padding: 3rem 4rem;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    
+    /* Animation initial state */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-smooth);
+}
+
+.tale-container.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tale-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tale-category {
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.tale-title {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.tale-divider {
+    height: 2px;
+    width: 60px;
+    background-color: var(--color-accent);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+.tale-content {
+    font-size: 1.15rem;
+}
+
+.tale-paragraph {
+    margin-bottom: 2rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+.tale-paragraph.highlight {
+    font-family: var(--font-ui);
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text-main);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1.5rem;
+    margin: 2.5rem 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0 8px 8px 0;
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.ingredients-list {
+    list-style: none;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+.ingredients-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-family: var(--font-ui);
+    font-size: 1.05rem;
+    transition: var(--transition-smooth);
+}
+
+.ingredients-list li:hover {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 4px;
+}
+
+.ingredients-list .measure {
+    color: var(--color-accent);
+    font-weight: 600;
+    flex-basis: 40%;
+    text-align: right;
+    padding-right: 1.5rem;
+}
+
+.ingredients-list .ingredient {
+    flex-basis: 60%;
+    text-align: left;
+    color: var(--color-text-main);
+}
+
+.action-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.btn {
+    font-family: var(--font-ui);
+    background: transparent;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--color-accent);
+    transition: var(--transition-smooth);
+    z-index: -1;
+}
+
+.btn:hover {
+    color: var(--color-bg-primary);
+}
+
+.btn:hover::before {
+    width: 100%;
+}
+
+.error-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-container h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: #ef4444;
+    margin-bottom: 1rem;
+}
+
+.error-container p {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+/* --- NAV --- */
+.nav-container {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10;
+}
+
+.nav-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+    border-bottom-color: var(--color-accent);
+}
+
+.menu-nav {
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* --- MENU SPECIFIC STYLES --- */
+.menu-body {
+    background: url('https://www.transparenttextures.com/patterns/dark-wood.png'), linear-gradient(to bottom, #0a0a0a, #111111);
+    background-color: #0a0a0a;
+    min-height: 100vh;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+}
+
+.menu-book {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    justify-content: space-between;
+}
+
+.menu-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.category-title {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    color: #eab308; /* Golden yellow */
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(234, 179, 8, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.item-details {
+    flex-grow: 1;
+    display: flex; /* Helps align dots perfectly */
+    align-items: baseline;
+    overflow: hidden; /* For dots */
+}
+
+.item-name {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: #e2e8f0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.item-dots {
+    flex-grow: 1;
+    border-bottom: 2px dotted rgba(255,255,255,0.2);
+    margin: 0 10px;
+    position: relative;
+    top: -4px;
+}
+
+.item-price {
+    font-family: 'Oswald', sans-serif;
+    color: #eab308;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.category-image {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.category-image img {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    opacity: 0.9;
+    mix-blend-mode: screen; /* Helps images blend into the dark background somewhat like the reference */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tale-container {
+        padding: 2rem;
+    }
+    
+    .tale-title {
+        font-size: 2.5rem;
+    }
+    
+    .tale-paragraph {
+        font-size: 1rem;
+    }
+    
+/* Responsive adjustments for Story mode */
+@media (max-width: 768px) {
+    .tale-container { padding: 2rem; }
+    .tale-title { font-size: 2.5rem; }
+    .tale-paragraph { font-size: 1rem; }
+    .ingredients-list li { font-size: 0.95rem; }
+}
+}
+
+/* ========================================= */
+/* --- NEW GREEN MENU STYLES (Phase 3) --- */
+/* ========================================= */
+
+.green-menu-body {
+    background-color: #1a2c21; /* Dark green */
+    color: #e9d59c; /* Gold/beige */
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.green-menu-wrapper {
+    max-width: 800px; /* Poster dimension ratio */
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border: 1px solid rgba(233, 213, 156, 0.2); /* faint inner border */
+    min-height: 95vh;
+    box-sizing: border-box;
+}
+
+.green-menu-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.brand-name {
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.title-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 5rem;
+    letter-spacing: 5px;
+    margin: 0;
+    line-height: 1;
+}
+
+.cursive-subtitle {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #cca43b; /* A brighter gold for the script */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -10%); /* overlaps lower-middle */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.menu-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+/* Zig-zag arrangement */
+.menu-section.text-left {
+    flex-direction: row;
+}
+
+.menu-section.text-right {
+    flex-direction: row-reverse;
+}
+
+.menu-text-content {
+    flex: 1;
+}
+
+.menu-image-content {
+    flex: 0 0 40%;
+    text-align: center;
+}
+
+.styled-drink-img {
+    max-width: 100%;
+    height: 180px;
+    object-fit: contain;
+    /* Optional: filter to make it look a bit more vintage/drawn */
+    filter: sepia(0.6) hue-rotate(350deg) brightness(0.9) contrast(1.2);
+    box-shadow: none;
+    background: transparent;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(233, 213, 156, 0.3);
+    padding-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.green-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.green-menu-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+.drink-name {
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.drink-price {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.nav-container-bottom {
+    text-align: center;
+    margin-top: 5rem;
+    padding-bottom: 2rem;
+}
+
+.nav-link-gold {
+    color: #cca43b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s ease;
+}
+
+.nav-link-gold:hover {
+    border-bottom-color: #cca43b;
+}
+
+/* Responsive for Green Menu */
+@media (max-width: 600px) {
+    .main-title { font-size: 3rem; }
+    .cursive-subtitle { font-size: 2.5rem; }
+    
+    .menu-section.text-left, 
+    .menu-section.text-right {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    
+    .menu-image-content {
+        margin-bottom: 1.5rem;
+    }
+    
+    .green-menu-list li {
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-bottom: 1rem;
+    }
+}

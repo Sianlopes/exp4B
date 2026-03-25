@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cocktail Tale</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <% if (error) { %>
+        <div class="error-container">
+            <h1>A Tale Lost to Time</h1>
+            <p><%= error %></p>
+            <button onclick="window.location.reload()" class="btn">Seek Another Tale</button>
+        </div>
+    <% } else if (drink) { %>
+        <div class="nav-container">
+            <a href="/menu" class="nav-link">View Full Menu &rarr;</a>
+        </div>
+        <div class="hero-section" style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.95)), url('<%= drink.strDrinkThumb %>');">
+            <!-- Glassmorphism Container for the Story -->
+            <div class="tale-container">
+                <header class="tale-header">
+                    <span class="tale-category"><%= drink.strCategory %> • <%= drink.strAlcoholic %></span>
+                    <h1 class="tale-title"><%= drink.strDrink %></h1>
+                    <div class="tale-divider"></div>
+                </header>
+
+                <div class="tale-content">
+                    <p class="tale-paragraph">
+                        Every drink tells a story, and the tale of the <strong><%= drink.strDrink %></strong> is one of mastery and balance. 
+                        Usually served gracefully in a <em><%= drink.strGlass %></em>, this concoction is the perfect harmony of its cast of characters:
+                    </p>
+
+                    <ul class="ingredients-list">
+                        <% ingredients.forEach(function(ing) { %>
+                            <li>
+                                <span class="measure"><%= ing.measure %></span>
+                                <span class="ingredient"><%= ing.name %></span>
+                            </li>
+                        <% }); %>
+                    </ul>
+
+                    <p class="tale-paragraph highlight">
+                        "<%= drink.strInstructions %>"
+                    </p>
+
+                    <div class="action-container">
+                        <button onclick="window.location.reload()" class="btn mix-btn">Uncover Another Tale</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <% } %>
+
+    <script>
+        // Micro-interactions and subtle reveal effects
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.querySelector('.tale-container');
+            if (container) {
+                setTimeout(() => {
+                    container.classList.add('reveal');
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

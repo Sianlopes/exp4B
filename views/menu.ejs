@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Menu - Liceria & Co.</title>
+    <!-- Fonts matching the reference -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="green-menu-body">
+    <div class="green-menu-wrapper">
+        <header class="green-menu-header">
+            <span class="brand-name">LICERIA & CO.</span>
+            <div class="title-wrapper">
+                <h1 class="main-title">COCKTAIL</h1>
+                <span class="cursive-subtitle">Menu</span>
+            </div>
+        </header>
+
+        <% if (error) { %>
+            <div class="error-container">
+                <p><%= error %></p>
+                <div class="nav-container-bottom" style="margin-top: 2rem;">
+                    <a href="/" class="nav-link-gold">&larr; Back to Story</a>
+                </div>
+            </div>
+        <% } else if (menuData) { %>
+            <div class="menu-content">
+                <% const categories = Object.keys(menuData); %>
+                <% categories.forEach((cat, index) => { %>
+                    <section class="menu-section <%= index % 2 === 0 ? 'text-left' : 'text-right' %>">
+                        <div class="menu-text-content">
+                            <h2 class="section-title"><%= cat %></h2>
+                            <ul class="green-menu-list">
+                                <% menuData[cat].forEach(drink => { %>
+                                    <li>
+                                        <span class="drink-name"><%= drink.strDrink %></span>
+                                        <span class="drink-price">$ <%= (Math.random() * 5 + 10).toFixed(2) %></span>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                        <% if (menuData[cat].length > 0) { %>
+                            <div class="menu-image-content">
+                                <img src="<%= menuData[cat][0].strDrinkThumb %>" alt="<%= cat %>" class="styled-drink-img">
+                            </div>
+                        <% } %>
+                    </section>
+                <% }); %>
+            </div>
+            
+            <div class="nav-container-bottom">
+                <a href="/" class="nav-link-gold">&larr; Back to Story</a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
