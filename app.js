@@ -12,10 +12,20 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Fetch random cocktail data and render the storytelling template
+// Fetch random cocktail data or specific cocktail by ID and render the storytelling template
 app.get('/', async (req, res) => {
     try {
-        const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        const id = req.query.id;
+        const url = id 
+            ? `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+            : 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+            
+        const response = await axios.get(url);
+        
+        if (!response.data.drinks) {
+            return res.render('index', { drink: null, ingredients: null, error: 'Tale not found in the archives.' });
+        }
+        
         const drink = response.data.drinks[0];
 
         // Process ingredients and measures into an array
@@ -71,6 +81,28 @@ app.get('/menu', async (req, res) => {
         console.error('Error fetching menu data:', error.message);
         res.render('menu', { menuData: null, error: 'Failed to retrieve the drink menu. Please try again later.' });
     }
+});
+
+// Search functionality
+app.get('/search', async (req, res) => {
+    const query = req.query.q;
+    let drinks = null;
+    let error = null;
+
+    if (query) {
+        try {
+            const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`);
+            drinks = response.data.drinks;
+            if (!drinks) {
+                error = `No tales found for "${query}". Try searching for another potion.`;
+            }
+        } catch (err) {
+            console.error('Error in search:', err.message);
+            error = "Failed to search the archives. Please try again.";
+        }
+    }
+
+    res.render('search', { drinks, query, error });
 });
 
 // Start the server

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search the Archives - Cocktail Tale</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background-color: var(--color-bg-primary); color: var(--color-text-main); font-family: var(--font-ui); min-height: 100vh;">
+    
+    <div class="nav-container">
+        <a href="/" class="nav-link">Return to Story &rarr;</a>
+    </div>
+
+    <div class="search-container">
+        <header class="search-header">
+            <h1 class="main-title" style="font-size: 3.5rem; color: #fff;">Search</h1>
+            <p style="color: var(--color-text-muted); font-style: italic; margin-top: 1rem; font-family: var(--font-story);">Find a specific tale hidden in the mixologist's archives...</p>
+        </header>
+
+        <form action="/search" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Enter a cocktail name..." value="<%= query || '' %>" required class="search-input">
+            <button type="submit" class="btn search-btn">Seek</button>
+        </form>
+
+        <% if (error) { %>
+            <div class="search-error">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+
+        <% if (drinks) { %>
+            <div class="search-results">
+                <% drinks.forEach(drink => { %>
+                    <a href="/?id=<%= drink.idDrink %>" class="search-card">
+                        <div class="card-img-wrapper">
+                            <img src="<%= drink.strDrinkThumb %>" alt="<%= drink.strDrink %>">
+                        </div>
+                        <div class="card-info">
+                            <h3><%= drink.strDrink %></h3>
+                            <span class="card-category"><%= drink.strCategory %></span>
+                        </div>
+                    </a>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+
+</body>
+</html>
